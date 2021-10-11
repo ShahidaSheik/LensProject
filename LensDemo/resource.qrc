@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>similar/fileOpen.jpg</file>
+        <file>similar/Files-New-File-icon.png</file>
+        <file>similar/fileClose.jpg</file>
+        <file>similar/Actions-document-save-icon.png</file>
+        <file>similar/Actions-document-save-as-icon.png</file>
+        <file>similar/export-icon.png</file>
+        <file>similar/Windows-Close-Program-icon.png</file>
+        <file>similar/File-Open-icon.png</file>
+        <file>similar/File-new-icon.png</file>
+        <file>similar/Undo.png</file>
+        <file>similar/Redo-icon.png</file>
+        <file>similar/File-Delete-icon.png</file>
+        <file>similar/about.png</file>
+        <file>similar/Categories-system-help-icon.png</file>
+        <file>similar/prefs-icon.png</file>
+        <file>similar/Edit-Document-icon.png</file>
+        <file>similar/opnefileicon.jpg</file>
+        <file>similar/newfileicon.png</file>
+        <file>similar/saveasicon.png</file>
+        <file>similar/newrecipe.jpg</file>
+        <file>similar/saveAsicon2.png</file>
+        <file>similar/save.jpg</file>
+        <file>similar/alpha.png</file>
+        <file>similar/categorized.png</file>
+    </qresource>
+</RCC>

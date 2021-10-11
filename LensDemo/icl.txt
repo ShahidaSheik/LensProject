@@ -1,0 +1,34 @@
+LensName = "MyLens.pgm"
+;Created on 30-Dec-20 12:10:45 PM
+LensType=Toric
+BlankDiam=16.700
+Front = NO
+LensDiam=5.5000
+HapticDiam=12.0000
+HapticThickness=0.1700
+HapticRise=0.2843
+HapticRadius=18.7000
+MeasureSurface=TRUE
+BackLength=15.450
+MajorRadius=70.0000
+MinorRadius=150.0000
+Mill=YES
+
+
+
+RecipeName="MyRecipe1"
+NumberPasses=2
+PassData[ToolNumberOffset+0]=4
+PassData[CutDepthOffset+0]=200.0000
+PassData[CutSpeedOffset+0]=0.6000
+PassData[SpindleSpeedOffset+0]=5500.0000
+;FARCALL "LensPRO.pgm","ProcessLens"
+
+
+PassData[ToolNumberOffset+1]=6
+PassData[CutDepthOffset+1]=40.0000
+PassData[CutSpeedOffset+1]=0.3000
+PassData[SpindleSpeedOffset+1]=5000.0000
+FARCALL "LensPRO.pgm","ProcessLens"
+
+END PROGRAM
