@@ -3,6 +3,7 @@ LensName = "MyLens.pgm"
 LensType=Toric
 BlankDiam=16.700
 Front = NO
+Diopter = 1
 LensDiam=5.5000
 HapticDiam=12.0000
 HapticThickness=0.1700

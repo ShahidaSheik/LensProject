@@ -6,12 +6,12 @@ Settings::Settings(QObject *parent) : QObject (parent)
 
 }
 
-void Settings::setLensType(QString str){
-     LensType = str;
+void Settings::setProfileType(QString str){
+     ProfileType = str;
 }
 
-QString Settings::get_LensType(){
-    return LensType;
+QString Settings::get_ProfileType(){
+    return ProfileType;
 }
 
 void Settings::setMeasureSurface(bool flag ){

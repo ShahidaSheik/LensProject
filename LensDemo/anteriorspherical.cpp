@@ -3,67 +3,76 @@
 
 AnteriorSpherical::AnteriorSpherical(QObject *parent)
     : Settings(parent)
-{}
-
-void AnteriorSpherical::setRadius(float r)
 {
-    radius = r;
+    MeasureSurface = false;
+    ProfileType = "Spherical";
+    diopter = 1;
+    FluidIOR = 1.334;
+    materialIOR = 1.4914;
+    specifyDiopter = true;
+    latheRecipe = " ";
+    MeasureSurface = true;
+    radius = 7.35;
 }
 
-float AnteriorSpherical::get_Radius()
-{
-     return radius;
+void AnteriorSpherical::setdiopter(int d) {
+    diopter = d;
+    emit diopterChanged();
+}
+int AnteriorSpherical::get_diopter() {
+    return diopter;
 }
 
-
-
-void AnteriorSpherical::setFluidIOR(double fior)
-{
+void AnteriorSpherical::setFluidIOR(double fior){
     FluidIOR = fior;
+    emit fluidiorChanged();
 }
 
-double AnteriorSpherical::get_FluidIOR()
-{
+double AnteriorSpherical::get_FluidIOR(){
     return FluidIOR;
 }
 
-void AnteriorSpherical::setmajoyD(int maj)
-{
-    majoyD = maj;
-}
-
-int AnteriorSpherical::get_majoyD()
-{
-    return majoyD;
-}
-
-void AnteriorSpherical::setmaterialIOR(double mater)
-{
+void AnteriorSpherical::setmaterialIOR(double mater){
     materialIOR = mater;
+    emit matiorChanged();
 }
 
-double AnteriorSpherical::get_materialIOR()
-{
+double AnteriorSpherical::get_materialIOR(){
     return materialIOR;
 }
 
-void AnteriorSpherical::setminorD(int min)
-{
-    minorD = min;
+void AnteriorSpherical::setspecifyDiopter(bool sd){
+   specifyDiopter = sd;
+   emit spedioChanged();
 }
 
-int AnteriorSpherical::get_minorD()
-{
-    return minorD;
-}
-
-void AnteriorSpherical::setspecifyDiopter(bool)
-{
-
-}
-
-bool AnteriorSpherical::get_specifyDiopter()
-{
+bool AnteriorSpherical::get_specifyDiopter(){
     return specifyDiopter;
 }
+
+void AnteriorSpherical::setlatheRecipe(QString r){
+    latheRecipe = r;
+    emit latheRecipeChanged();
+}
+QString AnteriorSpherical::get_latheRecipe(){
+    return latheRecipe;
+}
+
+void AnteriorSpherical::setRadius(float r){
+    radius = r;
+    emit radiusChanged();
+}
+float AnteriorSpherical::get_Radius() {
+    return radius;
+}
+
+
+
+
+
+
+
+
+
+
 
