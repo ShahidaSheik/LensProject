@@ -10,49 +10,49 @@
 class AnteriorSpherical : public Settings
 {
     Q_OBJECT
-    Q_PROPERTY (float radius READ get_Radius WRITE setRadius NOTIFY radiusChanged)
+    Q_PROPERTY (int diopter READ get_diopter WRITE setdiopter NOTIFY diopterChanged)
     Q_PROPERTY (double FluidIOR READ get_FluidIOR WRITE setFluidIOR NOTIFY fluidiorChanged)
-    Q_PROPERTY (int majoyD READ get_majoyD WRITE setmajoyD NOTIFY majdChanged)
     Q_PROPERTY (double materialIOR READ get_materialIOR WRITE setmaterialIOR NOTIFY matiorChanged)
-    Q_PROPERTY (int minorD READ get_minorD WRITE setminorD NOTIFY mindChanged)
     Q_PROPERTY (bool specifyDiopter READ get_specifyDiopter WRITE setspecifyDiopter NOTIFY spedioChanged)
+    Q_PROPERTY (QString latheRecipe READ get_latheRecipe WRITE setlatheRecipe NOTIFY latheRecipeChanged)
+    Q_PROPERTY (float radius READ get_Radius WRITE setRadius NOTIFY radiusChanged)
 
 public:
     AnteriorSpherical(QObject *parent = NULL);
 
-    Q_INVOKABLE void setRadius(float);
-    Q_INVOKABLE float get_Radius();
+    Q_INVOKABLE void setdiopter(int);
+    Q_INVOKABLE int get_diopter();
 
     Q_INVOKABLE void setFluidIOR(double);
     Q_INVOKABLE double get_FluidIOR();
 
-    Q_INVOKABLE void setmajoyD(int);
-    Q_INVOKABLE int get_majoyD();
-
     Q_INVOKABLE void setmaterialIOR(double);
     Q_INVOKABLE double get_materialIOR();
-
-    Q_INVOKABLE void setminorD(int);
-    Q_INVOKABLE int get_minorD();
 
     Q_INVOKABLE void setspecifyDiopter(bool);
     Q_INVOKABLE bool get_specifyDiopter();
 
+    Q_INVOKABLE void setlatheRecipe(QString);
+    Q_INVOKABLE QString get_latheRecipe();
+
+    Q_INVOKABLE void setRadius(float);
+    Q_INVOKABLE float get_Radius();
+
 signals:
-   void radiusChanged();
+   void diopterChanged();
    void fluidiorChanged();
-   void majdChanged();
    void matiorChanged();
-   void mindChanged();
    void spedioChanged();
+   void latheRecipeChanged();
+   void radiusChanged();
 
 protected:
-   float radius;
+    int diopter;
     double FluidIOR;
-    int majoyD;
     double materialIOR;
-    int minorD;
     bool specifyDiopter;
+    QString latheRecipe;
+    float radius;
 };
 
 #endif // ANTERIORSPHERICAL_H

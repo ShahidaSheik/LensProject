@@ -12,8 +12,8 @@ SOURCES += \
         anteriortoric.cpp \
         lens.cpp \
         lensfile.cpp \
-        lenspropmodel.cpp \
         main.cpp \
+        mylensmodel.cpp \
         posteriorasperical.cpp \
         posteriorspeheric.cpp \
         posteriortoric.cpp \
@@ -39,7 +39,7 @@ HEADERS += \
     anteriortoric.h \
     lens.h \
     lensfile.h \
-    lenspropmodel.h \
+    mylensmodel.h \
     posteriorasperical.h \
     posteriorspeheric.h \
     posteriortoric.h \

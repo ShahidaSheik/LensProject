@@ -1,10 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>test1.qml</file>
-        <file>test2.qml</file>
-        <file>Anterior.qml</file>
-        <file>test3.qml</file>
-        <file>AnteriorProp.qml</file>
+        <file>AnteriorSphericalProp.qml</file>
+        <file>AnteriorSphericalModel.qml</file>
+        <file>HighlightDelegate.qml</file>
+        <file>SectionDelegate.qml</file>
+        <file>PosteriorSphericalProp.qml</file>
+        <file>PosteriorSphericalModel.qml</file>
+        <file>LensPropModel.qml</file>
+        <file>Category.qml</file>
     </qresource>
 </RCC>

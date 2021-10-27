@@ -14,23 +14,8 @@ ApplicationWindow {
     width: 2000;
     height: 1300;
     visible: true;
+
     property string filepath: " win";
-    property real diameter: 10.5;
-    property string lensType : "Toric"
-    property real blankDiam : 12.0
-    property string front : "NO"
-    property real lensDiam : 5.5000
-    property real hapticDiam : 12.0000
-    property real hapticThickness : 0.1700
-    property real hapticRise : 0.2843
-    property real hapticRadius : 18.7000
-    property string measureSurface : "TRUE"
-    property real backLength : 10.67
-    property real majorRadius : 70.0000
-    property real minorRadius : 150.0000
-    property string mill : "YES"
-    property string recipeName : "MyRecipe1"
-    property int numberPasses : 2
     property string comtype : "D"
 
     toolBar: ToolBar
@@ -256,7 +241,7 @@ ApplicationWindow {
     Window {
         id: prop2;
         width: 300;
-        height: 915;
+        height: 35;
         visible: false;
         x: 1620;
         y: 120
@@ -270,109 +255,26 @@ ApplicationWindow {
                     id: alphatool
                     iconSource: "/icons/similar/alpha.png";
                     focus: true
-                    StackLayout {
-                        width: parent.width
-                        currentIndex: alphatool.currentIndex
-                        anchors.top: alphatool.bottom
-                        anchors.left: proptlbar.left
-                        Item {
-                            id: alphaitem
-                            ColumnLayout {
-                                TreeView {
-                                    id: treeViewprop
-                                    width: proptlbar.width
-                                    anchors.right: proptlbar.right
 
-                                    model: lensmodel
-                                    selection: ItemSelectionModel{
-                                        id: anteriorModel
-                                        model: lensmodel
-                                        onCurrentIndexChanged:{ }
-                                    }
-                                    itemDelegate: ItemDelegate {
-                                        MouseArea{
-                                            onClicked: {
-                                                treeViewprop.selection.setCurrentIndex(styleData.index, ItemSelectionModel.NoUpdate);
-                                                treeViewprop.selection.select(styleData.index, ItemSelectionModel.ClearAndSelect);
-                                                treeViewprop.selection.setCurrentIndex(styleData.index,ItemSelectionModel.SelectCurrent);
-                                            }
-                                        }
-                                        Text{
-                                            text: styleData.value !== undefined ? styleData.value : ""
-                                            Component.onCompleted: {
-                                                var n = styleData.value;
-                                                console.log("Name " + n);
-                                                if(n=="Name"){
-                                                    comtype = "MyLens";
-                                                    console.log("Passed Successfully from name " + comtype);
-                                                }
-                                            }
-                                        }
-                                    }
-                                    TableViewColumn{
-                                        //title:"Name"
-                                        role: "name"
-                                        width: 150
-//                                      delegate: Item {
-//                                            Component.onCompleted: {
-//                                                var n = styleData.value;
-//                                                console.log(n);
-//                                            }
-//                                      }
-                                    }
-                                    TableViewColumn{
-                                        //title:"Value"
-                                        role: "value"
-                                        width: 80
-                                        delegate: Item {
-
-                                            TextInput{
-                                                text: styleData.value !== undefined ? styleData.value :""
-                                                selectByMouse: true
-                                                onAccepted: {
-                                                    lensmodel.setValue(styleData.index, Number(text));
-                                                    focus = true;
-                                                    var p = lensmodel.getValue(styleData.index);
-                                                    console.log(p);
-                                                }
-                                            }
-                                            Component.onCompleted: {
-                                                var n = styleData.value;
-                                                console.log("Value " + n);
-                                                if(comtype == "MyLens")
-                                                    console.log("Passed Successfully");
-                                            }
-                                        }
-                                    }
-                                    Component.onCompleted:
-                                    {
-                                        expandAllprop();
-                                    }
-
-                                }
-                            }
-                        }
-
-                    }
                 }
                 ToolButton {
                     visible: true
                     id: catyegorytool
                     iconSource: "/icons/similar/categorized.png";
                     focus : false
+                    onClicked: {
+                        console.log("Categorized toolbutton");
+                        var component3 = Qt.createComponent("Category.qml");
+                        var sprite3 = component3.createObject(appWindow3, {x: 0, y: 0});
+                        if (sprite3 === null) {
+                           console.log("Error creating object");
+                        }
+                    }
                 }
             }
         }
     }
 
-    function expandAllprop() {
-        for(var i=0; i < lensmodel.rowCount(); i++) {
-            var index = lensmodel.index(i,0)
-            if(!treeViewprop.isExpanded(index)) {
-                treeViewprop.expand(index)
-            }
-        }
-    }
     function expandAll() {
         for(var i=0; i < lenstree.rowCount(); i++) {
             var index = lenstree.index(i,0)
@@ -411,7 +313,6 @@ ApplicationWindow {
                 ColumnLayout {
                     TreeView {
                         id: treeView
-                        anchors.right: proptlbar.right
                         model: lenstree
                         selectionMode: SelectionMode.SingleSelection
                         selection: ItemSelectionModel{
@@ -421,10 +322,7 @@ ApplicationWindow {
                         TableViewColumn{
                             role: "name"
                             width: win2.width
-//                            delegate: {
-//                                   var n = styleData.value;
-//                                   choosedelegate(n);
-//                            }
+
                         }
                         Component.onCompleted: {
                             expandAll();
@@ -434,92 +332,83 @@ ApplicationWindow {
 
                         }
                         itemDelegate: Item {
-                                Text {
+                            Text {
                                 anchors.fill: parent
                                 color: styleData.textColor
                                 elide: styleData.elideMode
                                 text: styleData.value
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    appWindow.visible = true;
+                                    var ix = lenstree.index(0, 1, styleData.index)
+                                    mySelectionModel.select(ix, ItemSelectionModel.Select)
+                                    console.log("Index obtained " + styleData.index);
+                                    console.log("Data Obtained " + styleData.value);
+                                    if(styleData.value === "Anterior/Front")
+                                    {
+                                        var component = Qt.createComponent("AnteriorSphericalProp.qml");
+                                        var sprite = component.createObject(appWindow, {x: 0, y: 0});
+                                        if (sprite === null) {
+                                            console.log("Error creating object");
+                                        }
+                                    }
+                                    else
+                                        if(styleData.value === "Posterior/Back")
+                                        {
+                                            console.log("INSIDE POSTERIOR");
+                                            var component2 = Qt.createComponent("PosteriorSphericalProp.qml");
+                                            var sprite2 = component2.createObject(appWindow2, {x: 0, y: 0});
+                                            if (sprite2 === null) {
+                                               console.log("Error creating object");
+                                            }
+                                        }
                                 }
                             }
 
-
-                        onClicked: {
-                            lens.visible = true;
-                            prop.visible = true;
-                            appWindow.visible = true;
-                            if (index.parent.row >= 0) {
-                                if (index.row >= 0) {
-                                    console.log("data selected: " + lenstree.data(index));
-                                    var newQML = "import QtQuick 2.0; \n";
-                                    newQML += "import QtQuick.Controls 2.0\n";
-                                    newQML += "ComboBox {\n";
-                                    newQML += "  model: ListModel {\n"
-                                    newQML += "    ListElement {\n"
-                                    newQML += "      name: \"One\"\n"
-                                    newQML += "    }\n"
-                                    newQML += "    ListElement {\n"
-                                    newQML += "      name: \"Two\"\n"
-                                    newQML += "    }\n"
-                                    newQML += "  }\n"
-                                    newQML += "}\n"
-
-                                    var new2qml = "import QtQuick 2.0; \n";
-                                    new2qml += "import QtQuick.Controls 2.0\n";
-                                    new2qml += "ComboBox {\n";
-                                    new2qml += "model: [\"First\", \"Second\", \"Third\"]";
-                                    new2qml += "}\n"
-                                }
-                                //var newObject = Qt.createQmlObject('import QtQuick 2.0; Text { text: "sample" }', prop, "sample");
-                                var newObject = Qt.createQmlObject(newQML, lens, "combo1");
-                                var new2Obj = Qt.createQmlObject(new2qml, prop, "combo2");
-                                var lenstype = "ASPHERIC"
-                                var component = Qt.createComponent("AnteriorProp.qml");
-                                var sprite = component.createObject(appWindow, {x: 300, y: 150});
-                                if (sprite === null) {
-                                       // Error Handling
-                                       console.log("Error creating object");
-                                   }
-                                }
-                            }
                         }
                     }
                 }
             }
-            Item {
-                id: recipeTab
-            }
-    }
-    Rectangle {
-        id: lens
-        x: 370
-        y: 40
-        visible: false
-        width: 200
-        height: 50
-        color: "#DDDDDD"
-    }
-
-    Rectangle {
-        id: prop
-        x: 630
-        y: 40
-        visible: false
-        width: 200
-        height: 150
-        color: "#DDDDEE"
+        }
+        Item {
+            id: recipeTab
+        }
     }
     Rectangle {
         id: appWindow
-        x: 500
-        y: 200
-        visible: false
-        width: 200
-        height: 50
-        color: "#DDDDEE"
+        x: 800
+        y: 87
+        visible: true
+        width: 400
+        height: 400
+        color: "#afeeee"
+
+    }
+    Rectangle {
+        id: appWindow2
+        x: 1200
+        y: 87
+        visible: true
+        width: 400
+        height: 400
+        color: "#87cefa"
+
+    }
+
+    Rectangle {
+        id: appWindow3
+        visible: true
+        x:1610
+        y:87
+        width: 400
+        height: 400
+        color: "#ffe4b5"
     }
 
     function choosedelegate(n){
-        console.log(n);
+        console.log("Hello console " + n);
     }
 
     function navigateopen(){
@@ -571,11 +460,12 @@ ApplicationWindow {
             for (var prop in mymap) {
                 console.log("Object item:", prop, "=", mymap[prop])
                 if( prop === "LensType")
-                    lensType = mymap[prop]
-                else if(prop === "BackLength")
-                    backLength = mymap[prop]
-                textView.text += prop;
+                    anteriorspherical.setProfileType(mymap[prop]);
+                else if(prop === "Diopter")
+                    anteriorspherical.setdiopter(mymap[prop]);
+                textView.text = prop;
                 textView.text += mymap[prop];
+
             }
             console.log(" LensType = ", lensType, "BackLength = ", backLength);
         }
