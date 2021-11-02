@@ -12,7 +12,6 @@ class AnteriorAspheric : public Settings
     Q_PROPERTY (int A4 READ get_A4 WRITE setA4 NOTIFY a4Changed)
     Q_PROPERTY (float basCurvature READ get_basCurvature WRITE setbasCurvature NOTIFY basecurChanged)
     Q_PROPERTY (float conicConstant READ get_conicConstant WRITE setconicConstant NOTIFY conconsChanged)
-    Q_PROPERTY (QString latheRecipe READ get_latheRecipe WRITE setlatheRecipe NOTIFY lathrecChanged)
     Q_PROPERTY (float radiusCurvature READ get_radiusCurvature WRITE setradiusCurvature NOTIFY radcurChanged)
 
 public:
@@ -36,9 +35,6 @@ public:
     Q_INVOKABLE void setconicConstant(float);
     Q_INVOKABLE float get_conicConstant();
 
-    Q_INVOKABLE void setlatheRecipe(QString);
-    Q_INVOKABLE QString get_latheRecipe();
-
     Q_INVOKABLE void setradiusCurvature(float);
     Q_INVOKABLE float get_radiusCurvature();
 
@@ -49,7 +45,6 @@ signals:
    void a4Changed();
    void basecurChanged();
    void conconsChanged();
-   void lathrecChanged();
    void radcurChanged();
 
 
@@ -57,9 +52,7 @@ protected:
     int A1,A2,A3,A4;
     float basCurvature;
     float conicConstant;
-    QString latheRecipe;
     float radiusCurvature;
-
 };
 
 #endif // ANTERIORASPHERIC_H

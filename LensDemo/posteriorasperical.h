@@ -1,9 +1,9 @@
 #ifndef POSTERIORASPERICAL_H
 #define POSTERIORASPERICAL_H
 
-#include "anteriorspherical.h"
+#include "anterioraspheric.h"
 
-class PosteriorAsperical : public AnteriorSpherical
+class PosteriorAsperical : public AnteriorAspheric
 {
     Q_OBJECT
     Q_PROPERTY (float pabackLength READ get_pabacklen WRITE set_pabacklen NOTIFY pabacklenChanged)

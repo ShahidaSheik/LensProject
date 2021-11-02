@@ -6,72 +6,47 @@ import QtQuick.Controls 2.12
 
 ColumnLayout
 {
+    ListModel {
+        id: postSphere
+        ListElement { front: "Back Length"; prop: "Settings"; value: 0}
+        ListElement { front: "Lathe Recipe"; prop: "Settings"; value: "My Recipe1"}
+        ListElement { front: "Measure Surface"; prop: "Settings"; value: false }
+        ListElement { front: "Radius"; prop: "Settings"; value:20.2 }
+        ListElement { front: "Square Edge Step"; prop: "Settings"; value:0}
+    }
+
    ListView
    {
-    id: view3
+    id: poSphere
     visible: true;
     property var collapsed : ({})
     width: 300
     height: 380
-    model: PosteriorSphericalModel {}
+    model: postSphere
     DelegateChooser {
         id: chooser
         role: "front"
-        DelegateChoice { roleValue: "Profile Type";
-            ItemDelegate {
-                Layout.fillWidth: true
-                height: view3.isSectionExpanded(model.prop)? implicitHeight : 0
-                Behavior on height {
-                    NumberAnimation { duration : 200}
-                }
-                RowLayout {
-                    width: view3.width
-                    Text {
-                        id: t2
-                        clip: true
-                        text: model.front
-                        font.pixelSize: 15
-                        height: implicitHeight
-                    }
-                    ComboBox {
-                        clip: true
-                        height: view3.isSectionExpanded(model.prop)? implicitHeight : 0
-                        model: ["Spherical", "Toric", "ASpherical"]
-                        onActivated: {
-                            model.value = editText;
-                            anteriorspherical.setProfileType(editText);
-                            console.log("Profile Type is now " + model.value);
-                            console.log("Profile Type in model is now " + posteriorspherical.get_ProfileType());
-                        }
-                        Component.onCompleted: {
-                            console.log("Profile Type value " + model.value + "Backend value Profile Type " + posteriorspherical.get_ProfileType());
-                        }
-                    }
-                }
-            }
-        }
+
         DelegateChoice { roleValue: "Back Length";
             ItemDelegate {
-                Layout.fillWidth: true
-                height: view3.isSectionExpanded(model.prop)? implicitHeight : 0
+                height: poSphere.isSectionExpanded(model.prop)? implicitHeight : 0
                 Behavior on height {
                     NumberAnimation { duration : 200}
                 }
                 RowLayout {
-                    width: view3.width
+                    width: poSphere.width
                     Text {
                         id: t3
                         clip: true
                         text: model.front
                         font.pixelSize: 15
-                        height: implicitHeight
+                        leftPadding: 10
                     }
-                    TextInput {
+                    TextField {
                         id: tf1
                         height: implicitHeight
                         text: posteriorspherical.psbackLength
-                        validator: IntValidator{}
-                        horizontalAlignment: TextInput.AlignHCenter
+                        font.pixelSize: 15
                         onAccepted: {
                             model.value = parseInt(text,10);
                             posteriorspherical.set_psbacklen(parseInt(text,10));
@@ -87,21 +62,21 @@ ColumnLayout
 
         DelegateChoice { roleValue: "Lathe Recipe";
             ItemDelegate {
-                height: view3.isSectionExpanded(model.prop)? implicitHeight : 0
+                height: poSphere.isSectionExpanded(model.prop)? implicitHeight : 0
                 Behavior on height {
                     NumberAnimation { duration : 200}
                 }
                 RowLayout {
-                    width: view3.width
+                    width: poSphere.width
                     Text {
                         clip: true
                         text: model.front
                         font.pixelSize: 15
-                         height: view1.isSectionExpanded(model.prop)? implicitHeight : 0
+                        leftPadding: 10
                     }
                     ComboBox {
                         clip: true
-                        height: view3.isSectionExpanded(model.prop)? implicitHeight : 0
+                        height: poSphere.isSectionExpanded(model.prop)? implicitHeight : 0
                         model: ["MyRecipe1", "MyRecipe2"]
                         onActivated: {
                             model.value = editText;
@@ -120,12 +95,12 @@ ColumnLayout
 
         DelegateChoice { roleValue: "Measure Surface";
             ItemDelegate {
-                height: view3.isSectionExpanded(model.prop)? implicitHeight : 0
+                height: poSphere.isSectionExpanded(model.prop)? implicitHeight : 0
                 Behavior on height {
                     NumberAnimation { duration : 200}
                 }
                 RowLayout {
-                    width: view3.width
+                    width: poSphere.width
                     CheckDelegate {
                         checkState: posteriorspherical.MeasureSurface ? Qt.Checked : Qt.Unchecked
                         nextCheckState: function() {
@@ -134,6 +109,8 @@ ColumnLayout
                             else return Qt.Checked
                         }
                         text: model.front
+                        leftPadding: 10
+                        font.pixelSize: 15
                         onCheckStateChanged: {
                             model.value = checkState == Qt.Checked ? true : false;
                             console.log("Measure Surface is now " + model.value);
@@ -150,23 +127,24 @@ ColumnLayout
 
         DelegateChoice { roleValue: "Radius";
             ItemDelegate {
-                height: view3.isSectionExpanded(model.prop)? implicitHeight : 0
+                height: poSphere.isSectionExpanded(model.prop)? implicitHeight : 0
                 Behavior on height {
                     NumberAnimation { duration : 200}
                 }
 
                 RowLayout {
-                    width: view3.width
+                    width: poSphere.width
                     Text {
                         clip: true
                         text: model.front
+                        leftPadding: 10
                         font.pixelSize: 15
-                        height: view3.isSectionExpanded(model.prop)? implicitHeight : 0
                     }
                     TextField {
                         clip: true
                         text: posteriorspherical.radius
-                        height: view1.isSectionExpanded(model.prop)? implicitHeight : 0
+                        leftPadding: 10
+                        font.pixelSize: 15
                         onAccepted: {
                             model.value = parseFloat(text,10);
                             posteriorspherical.setRadius(parseFloat(text,10));
@@ -185,25 +163,25 @@ ColumnLayout
         DelegateChoice { roleValue: "Square Edge Step";
             ItemDelegate {
                 Layout.fillWidth: true
-                height: view3.isSectionExpanded(model.prop)? implicitHeight : 0
+                height: poSphere.isSectionExpanded(model.prop)? implicitHeight : 0
                 Behavior on height {
                     NumberAnimation { duration : 200}
                 }
                 RowLayout {
-                    width: view3.width
+                    width: poSphere.width
                     Text {
                         id: t4
                         clip: true
                         text: model.front
+                        leftPadding: 10
                         font.pixelSize: 15
-                        height: implicitHeight
                     }
                     TextInput {
                         id: tf2
                         height: implicitHeight
                         text: posteriorspherical.psSqredgeStep
-                        validator: IntValidator{}
-                        horizontalAlignment: TextInput.AlignHCenter
+                        leftPadding: 10
+                        font.pixelSize: 15
                         onAccepted: {
                             model.value = parseInt(text,10);
                             posteriorspherical.set_pssqredge(parseInt(text,10));
@@ -234,7 +212,7 @@ ColumnLayout
                 right: parent.right
             }
             text: section
-            onClicked: view3.toggleSection(section)
+            onClicked: poSphere.toggleSection(section)
         }
     }
 
@@ -263,6 +241,7 @@ ColumnLayout
     }
     delegate: chooser
     header: header2
+    footer: header2
     Component {
         id: header2
         Rectangle {
@@ -271,17 +250,17 @@ ColumnLayout
             Text {
                text: "Posterior Spherical"
                font.bold: true
-               font.pixelSize: 15
+               font.pixelSize: 17
                fontSizeMode: Text.HorizontalFit
             }
             gradient: Gradient {
                 GradientStop {
                     position: 0.00;
-                    color: "#ffd700"
+                    color: "moccasin"
                 }
                 GradientStop {
                     position: 1.00;
-                    color: "#ffd700"
+                    color: "moccasin"
                 }
             }
         }
