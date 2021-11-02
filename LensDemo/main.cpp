@@ -9,8 +9,10 @@
 #include "posteriorspeheric.h"
 #include "posteriortoric.h"
 #include "posteriorasperical.h"
+#include "hapticflat.h"
+#include "hapticvaulted.h"
+#include "hapticcurved.h"
 #include "mylensmodel.h"
-
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +27,9 @@ int main(int argc, char *argv[])
    PosteriorSpheric posspherical;
    PosteriorToric postoric;
    PosteriorAsperical posaspheric;
+   HapticFlat hapticf;
+   HapticCurved hapticc;
+   HapticVaulted hapticv;
 
    engine.rootContext()->setContextProperty("lenstree", &lenstree);
    engine.rootContext()->setContextProperty("mylensmodel", &mylens);
@@ -34,6 +39,9 @@ int main(int argc, char *argv[])
    engine.rootContext()->setContextProperty("posteriorspherical", &posspherical);
    engine.rootContext()->setContextProperty("posteriortoric", &postoric);
    engine.rootContext()->setContextProperty("posterioraspheric", &posaspheric);
+   engine.rootContext()->setContextProperty("hapticflat", &hapticf);
+   engine.rootContext()->setContextProperty("hapticcurved", &hapticc);
+   engine.rootContext()->setContextProperty("hapticvaulted", &hapticv);
 
 
    qmlRegisterType<LensFile>("com.mytexteditor.filerwritter", 1, 0, "FileRWritter");

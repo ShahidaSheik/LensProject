@@ -2,7 +2,11 @@
 
 AnteriorToric::AnteriorToric(QObject *parent) : Settings(parent)
 {
-
+    ProfileType = "Toric";
+    MeasureSurface = false;
+    latheRecipe = "";
+    majorRadius = 10;
+    minorRadius = 15;
 }
 
 void AnteriorToric::setmajRadius(float majr)

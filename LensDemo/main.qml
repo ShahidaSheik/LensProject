@@ -12,88 +12,17 @@ ApplicationWindow {
     id: mainwindowid
     title: qsTr ("LensPro Designer Demo");
     width: 2000;
-    height: 1300;
+    height: 1200;
     visible: true;
 
     property string filepath: " win";
     property string comtype : "D"
 
-    toolBar: ToolBar
-    {
-        id: tlbar;
-        RowLayout {
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/newfileicon.png";
-                onClicked: {
-                    newFile ();
-                    win2.visible = true
-                    prop2.visible = true
-                }
-            }
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/File-Open-icon.png";
-                onClicked: openfileDialog.open ();
-            }
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/fileClose.jpg";
-                onClicked: closetextfile();
-            }
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/save.jpg";
-                onClicked: saveFile ();
-            }
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/saveasicon.png";
-                onClicked: fileSaveAsDialog.open();
-            }
-            ToolSeparator{}
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/newfileicon.png";
-                onClicked: newFile ();
-            }
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/File-Open-icon.png";
-                onClicked: openfileDialog.open ();
-            }
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/save.jpg";
-                onClicked: saveFile();
-            }
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/saveasicon.png";
-                onClicked: fileSaveAsDialog.open();
-            }
-            ToolSeparator{}
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/export-icon.png";
-                onClicked: openfileDialog.open ();
-            }
-            ToolSeparator{}
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/Undo.png";
-                // onClicked:
-            }
-            ToolButton {
-                visible: true
-                iconSource: "/icons/similar/Redo-icon.png";
-                //   onClicked:
-            }
-        }
-    }
     menuBar:
+
         MenuBar {
         id: menbar
+
         Menu {
             title: qsTr ("& File");
             MenuItem {
@@ -238,80 +167,164 @@ ApplicationWindow {
         }
     }
 
+    toolBar: ToolBar
+    {
+        id: tlbar;
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.top: menbar.bottom
+        RowLayout {
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/newfileicon.png";
+                onClicked: {
+                    newFile ();
+                    win2.visible = true
+                    mainLoader.visible = true
+                }
+            }
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/File-Open-icon.png";
+                onClicked: openfileDialog.open ();
+            }
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/fileClose.jpg";
+                onClicked: closetextfile();
+            }
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/save.jpg";
+                onClicked: saveFile ();
+            }
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/saveasicon.png";
+                onClicked: fileSaveAsDialog.open();
+            }
+            ToolSeparator{}
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/newfileicon.png";
+                onClicked: newFile ();
+            }
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/File-Open-icon.png";
+                onClicked: openfileDialog.open ();
+            }
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/save.jpg";
+                onClicked: saveFile();
+            }
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/saveasicon.png";
+                onClicked: fileSaveAsDialog.open();
+            }
+            ToolSeparator{}
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/export-icon.png";
+                onClicked: openfileDialog.open ();
+            }
+            ToolSeparator{}
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/Undo.png";
+                // onClicked:
+            }
+            ToolButton {
+                visible: true
+                iconSource: "/icons/similar/Redo-icon.png";
+                //   onClicked:
+            }
+        }
+    }
     Window {
-        id: prop2;
-        width: 300;
-        height: 35;
-        visible: false;
-        x: 1620;
+        id: prop;
+        width: 315
+        x: 1600
         y: 120
+        visible: true
         color: "light gray";
         title: "Properties";
+        height: mainwindowid.height - (tlbar.height)
         ToolBar{
-            id: proptlbar;
+            id: proptl
+            height: 55;
+            anchors {
+                top: tlbar.bottom
+                right: prop.right
+                left: prop.left
+            }
             RowLayout {
                 ToolButton {
                     visible: true
                     id: alphatool
                     iconSource: "/icons/similar/alpha.png";
-                    focus: true
+                    focus: false
 
                 }
                 ToolButton {
                     visible: true
                     id: catyegorytool
                     iconSource: "/icons/similar/categorized.png";
-                    focus : false
-                    onClicked: {
-                        console.log("Categorized toolbutton");
-                        var component3 = Qt.createComponent("Category.qml");
-                        var sprite3 = component3.createObject(appWindow3, {x: 0, y: 0});
-                        if (sprite3 === null) {
-                           console.log("Error creating object");
-                        }
-                    }
+                    focus : true
                 }
             }
         }
-    }
-
-    function expandAll() {
-        for(var i=0; i < lenstree.rowCount(); i++) {
-            var index = lenstree.index(i,0)
-            if(!treeView.isExpanded(index)) {
-                treeView.expand(index)
+        Loader {
+            id: mainLoader
+            visible: true
+            //x: 1500
+            anchors {
+                left: prop.left
+                right: prop.right
+                top: proptl.bottom
             }
+            source: "Category.qml"
         }
     }
+
 
     Window {
         id: win2;
         width: 300;
-        height: 915
-        visible: false;
-        x: 8;
+        height: mainwindowid.height - tlbar.height
+        visible: true;
+        x: 9
         y: 120
-        color: "light gray";
+        color: "gray";
         title: "Navigator";
+
         TabBar {
             id: bar2
             width: parent.width
+            anchors.top: tlbar.bottom
+            anchors.left: tlbar.left
             TabButton {
                 id: tab1
                 text: qsTr("Lens")
+                font.pointSize: 10
+                width:implicitWidth
             }
             TabButton {
                 id: tab2
                 text: qsTr("Recipe")
+                font.pointSize: 10
+                width:implicitWidth
             }
         }
         StackLayout {
             currentIndex: bar2.currentIndex
             anchors.top: bar2.bottom
-            Item {
-                id: lensTab
-                ColumnLayout {
-                    TreeView {
+            anchors.left: parent.left
+            anchors.right: bar2.right
+            height: parent.height
+            TreeView {
                         id: treeView
                         model: lenstree
                         selectionMode: SelectionMode.SingleSelection
@@ -337,83 +350,90 @@ ApplicationWindow {
                                 color: styleData.textColor
                                 elide: styleData.elideMode
                                 text: styleData.value
+                                font.pointSize: 10
                             }
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    appWindow.visible = true;
-                                    var ix = lenstree.index(0, 1, styleData.index)
-                                    mySelectionModel.select(ix, ItemSelectionModel.Select)
-                                    console.log("Index obtained " + styleData.index);
-                                    console.log("Data Obtained " + styleData.value);
-                                    if(styleData.value === "Anterior/Front")
+                                    //appWindow.visible = true;
+                                    //var ix = lenstree.index(0, 1, styleData.index)
+                                   // mySelectionModel.select(ix, ItemSelectionModel.Select)
+//                                    console.log("Index obtained " + styleData.index);
+//                                    console.log("Data Obtained " + styleData.value);
+                                    //appWindow.children.visible = false;
+                                    //var component, sprite;
+                                    if(styleData.value === "MyLens")
                                     {
-                                        var component = Qt.createComponent("AnteriorSphericalProp.qml");
-                                        var sprite = component.createObject(appWindow, {x: 0, y: 0});
-                                        if (sprite === null) {
-                                            console.log("Error creating object");
-                                        }
+                                        mainLoader.source = "Category.qml";
                                     }
-                                    else
-                                        if(styleData.value === "Posterior/Back")
-                                        {
-                                            console.log("INSIDE POSTERIOR");
-                                            var component2 = Qt.createComponent("PosteriorSphericalProp.qml");
-                                            var sprite2 = component2.createObject(appWindow2, {x: 0, y: 0});
-                                            if (sprite2 === null) {
-                                               console.log("Error creating object");
-                                            }
-                                        }
+                                    else if(styleData.value === "Anterior/Front")
+                                    {
+                                        mainLoader.source = "AnteriorProp.qml";
+                                    }
+                                    else if(styleData.value === "Posterior/Back")
+                                    {
+                                        mainLoader.source = "PosteriorProp.qml";
+                                    }
+                                    else if(styleData.value === "Haptic")
+                                    {
+                                        mainLoader.source = "HapticProp.qml";
+                                    }
                                 }
                             }
-
-                        }
-                    }
-                }
+                 }
             }
         }
         Item {
             id: recipeTab
         }
     }
-    Rectangle {
-        id: appWindow
-        x: 800
-        y: 87
-        visible: true
-        width: 400
-        height: 400
-        color: "#afeeee"
-
-    }
-    Rectangle {
-        id: appWindow2
-        x: 1200
-        y: 87
-        visible: true
-        width: 400
-        height: 400
-        color: "#87cefa"
-
+    function expandAll() {
+        for(var i=0; i < lenstree.rowCount(); i++) {
+            var index = lenstree.index(i,0)
+            if(!treeView.isExpanded(index)) {
+                treeView.expand(index)
+            }
+        }
     }
 
-    Rectangle {
-        id: appWindow3
-        visible: true
-        x:1610
-        y:87
-        width: 400
-        height: 400
-        color: "#ffe4b5"
-    }
+//    Rectangle {
+//        id: appWindow
+//        x: 800
+//        y: 87
+//        visible: true
+//        width: 400
+//        height: 400
+//        color: "#afeeee"
+
+//    }
+//    Rectangle {
+//        id: appWindow2
+//        x: 1200
+//        y: 87
+//        visible: true
+//        width: 400
+//        height: 400
+//        color: "#87cefa"
+
+//    }
+
+//    Rectangle {
+//        id: appWindow3
+//        visible: true
+//        x:1610
+//        y:87
+//        width: 400
+//        height: 400
+//        color: "#ffe4b5"
+//    }
 
     function choosedelegate(n){
         console.log("Hello console " + n);
     }
 
     function navigateopen(){
-        win2.visible = (win2.visible == true ? 0 : 1)
-        prop2.visible = (prop2.visible == true ? 0: 1)
+        win2.visible = true
+        mainLoader.visible = true
     }
 
     function aboutapp ()

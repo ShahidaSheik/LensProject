@@ -1,171 +1,162 @@
 import QtQuick 2.12
-import QtQuick.Window 2.0
-import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 import Qt.labs.qmlmodels 1.0
 import QtQuick.Controls 2.12
-import QtQuick.Controls 1.1
-import QtQuick.Controls.Private 1.0
-import QtQuick.Controls.Styles 1.3
-import QtQuick.Controls.Styles 1.1
 
 ColumnLayout
 {
     ListModel {
-        id: lensProp
-        ListElement { front: "Name"; prop: "Misc"; value: "MyLens1" }
-        ListElement { front: "Precision"; prop: "Misc"; value: 6 }
-        ListElement { front: "Blank Diameter"; prop: "Settings"; value: 14.3 }
-        ListElement { front: "Lens Diameter"; prop: "Settings"; value: 5.5 }
+        id: hapCurved
+        ListElement { front: "Diameter"; prop: "Settings"; value: 12 }
+        ListElement { front: "Radius"; prop: "Settings"; value: 18.7 }
+        ListElement { front: "Rise"; prop: "Settings"; value: 0.25 }
+        ListElement { front: "Thickness"; prop: "Settings"; value: 0.17 }
     }
 
     ListView
     {
-        id: view2
+        id: hCurved
         visible: true;
         property var collapsed : ({})
         width: 300
         height: 380
-        x: 1500
-        leftMargin: 5
-        model: lensProp
+
+        model: hapCurved
         DelegateChooser {
-            id: chooser
+            id: hapcurveddelegate
             role: "front"
-            DelegateChoice { roleValue: "Name";
+
+            DelegateChoice { roleValue: "Diameter";
                 ItemDelegate {
-                    Layout.fillWidth: true
-                    height: view2.isSectionExpanded(model.prop)? implicitHeight : 0
+                    height: hCurved.isSectionExpanded(model.prop)? implicitHeight : 0
                     Behavior on height {
                         NumberAnimation { duration : 200}
                     }
                     RowLayout {
-                        width: view2.width
-                        Text {
-                            id: t2
-                            clip: true
-                            text: model.front
-                            font.pixelSize: 15
-                            height: implicitHeight
-                        }
-                        TextInput {
-                            id: tf1
-                            height: implicitHeight
-                            text: mylensmodel.name
-                            font.pixelSize: 15
-                            validator: IntValidator{}
-                            horizontalAlignment: TextInput.AlignHCenter
-                            onAccepted: {
-                                model.value = text;
-                                mylensmodel.setname(text);
-                                console.log("Name is now " + model.value + " Backend name now " + mylensmodel.get_name());
-                            }
-                            Component.onCompleted: {
-                                console.log("name value " + model.value + "Backend value name " + mylensmodel.get_name());
-                            }
-                        }
-                    }
-                }
-            }
-            DelegateChoice { roleValue: "Precision";
-                ItemDelegate {
-                    height: view2.isSectionExpanded(model.prop)? implicitHeight : 0
-                    Behavior on height {
-                        NumberAnimation { duration : 200}
-                    }
-                    RowLayout {
-                        width: view2.width
+                        width: hCurved.width
                         Text {
                             clip: true
                             text: model.front
                             font.pixelSize: 15
-                            height: implicitHeight
+                            leftPadding: 10
                         }
                         TextField {
                             clip: true
-                            height:implicitHeight
+                            width: parent.width / 2
+                            text: hapticcurved.diameter
                             font.pixelSize: 15
-                            text: mylensmodel.precision
                             onAccepted: {
                                 model.value = parseInt(text,10);
-                                mylensmodel.set_precision(parseInt(text,10));
-                                console.log("Precision is now " + model.value);
-                                console.log("Precision in model is now " + mylensmodel.get_precision());
+                                hapticcurved.setDiameter(parseInt(text,10));
+                                console.log("Diameter is now " + model.value);
+                                console.log("Diameter in model is now " + hapticcurved.get_diameter());
                             }
                             Component.onCompleted: {
-                                console.log("Precision value " + model.value + "Backend value Precision " + mylensmodel.get_precision());
+                                console.log("Diameter value " + model.value + "Backend value Diameter " + hapticcurved.get_diameter());
                             }
                         }
                     }
                 }
             }
-            DelegateChoice { roleValue: "Blank Diameter";
-                ItemDelegate {
-                    height: view2.isSectionExpanded(model.prop)? implicitHeight : 0
-                    Behavior on height {
-                        NumberAnimation { duration : 200}
-                    }
-                    RowLayout {
-                        width: view2.width
-                        Text {
-                            clip: true
-                            text: model.front
-                            font.pixelSize: 15
-                            height: implicitHeight
-                        }
-                        TextField {
-                            clip: true
-                            font.pixelSize: 15
-                            height: implicitHeight
-                            text: mylensmodel.blankDiameter
-                            onAccepted: {
-                                model.value = parseFloat(text,10);
-                                mylensmodel.set_blankDiam(parseFloat(text,10));
-                                console.log("Blank Diameter is now " + model.value);
-                                console.log("Blank Diameter in model is now " + mylensmodel.get_blankDiam());
-                            }
-                            Component.onCompleted: {
-                                console.log("Blank Diameter value " + model.value + "Backend value Blank Diameter " + mylensmodel.get_blankDiam());
-                            }
-                        }
-                    }
 
-                }
-            }
-            DelegateChoice { roleValue: "Lens Diameter";
+            DelegateChoice { roleValue: "Radius";
                 ItemDelegate {
-                    height: view2.isSectionExpanded(model.prop)? implicitHeight : 0
+                    height: hCurved.isSectionExpanded(model.prop)? implicitHeight : 0
                     Behavior on height {
                         NumberAnimation { duration : 200}
                     }
                     RowLayout {
-                        width: view2.width
+                        width: hCurved.width
                         Text {
                             clip: true
                             text: model.front
                             font.pixelSize: 15
-                            height: implicitHeight
+                            leftPadding: 10
                         }
                         TextField {
                             clip: true
+                            width: parent.width / 2
+                            text: hapticcurved.radius
                             font.pixelSize: 15
-                            height: implicitHeight
-                            text: mylensmodel.lensDiameter
                             onAccepted: {
                                 model.value = parseFloat(text,10);
-                                mylensmodel.set_lensDiam(parseFloat(text,10));
-                                console.log("Lens Diameter is now " + model.value);
-                                console.log("Lens Diameter in model is now " + mylensmodel.get_lensDiam());
+                                hapticcurved.setRadius(parseFloat(text,10));
+                                console.log("Radius is now " + model.value);
+                                console.log("Radius in model is now " + hapticcurved.get_radius());
                             }
                             Component.onCompleted: {
-                                console.log("Lens Diameter value " + model.value + "Backend value Lens Diameter " + mylensmodel.get_lensDiam());
+                                console.log("Radius value " + model.value + "Backend value Radius " + hapticcurved.get_radius());
                             }
                         }
                     }
                 }
             }
+
+            DelegateChoice { roleValue: "Rise";
+                ItemDelegate {
+                    height: hCurved.isSectionExpanded(model.prop)? implicitHeight : 0
+                    Behavior on height {
+                        NumberAnimation { duration : 200}
+                    }
+                    RowLayout {
+                        width: hCurved.width
+                        Text {
+                            clip: true
+                            text: model.front
+                            font.pixelSize: 15
+                            leftPadding: 10
+                        }
+                        TextField {
+                            clip: true
+                            width: parent.width / 2
+                            text: hapticcurved.rise
+                            font.pixelSize: 15
+                            onAccepted: {
+                                model.value = parseFloat(text,10);
+                                hapticcurved.setRise(parseFloat(text,10));
+                                console.log("Rise is now " + model.value);
+                                console.log("Rise in model is now " + hapticcurved.get_rise());
+                            }
+                            Component.onCompleted: {
+                                console.log("Rise value " + model.value + "Backend value Rise " + hapticcurved.get_rise());
+                            }
+                        }
+                    }
+                }
+            }
+            DelegateChoice { roleValue: "Thickness";
+                ItemDelegate {
+                    height: hCurved.isSectionExpanded(model.prop)? implicitHeight : 0
+                    Behavior on height {
+                        NumberAnimation { duration : 200}
+                    }
+                    RowLayout {
+                        width: hCurved.width
+                        Text {
+                            clip: true
+                            text: model.front
+                            font.pixelSize: 15
+                            leftPadding: 10
+                        }
+                        TextField {
+                            clip: true
+                            text: hapticcurved.thickness
+                            font.pixelSize: 15
+                            onAccepted: {
+                                model.value = parseFloat(text,10);
+                                hapticcurved.setThickness(parseFloat(text,10));
+                                console.log("Thickness is now " + model.value);
+                                console.log("Thickness in model is now " + hapticcurved.get_thickness());
+                            }
+                            Component.onCompleted: {
+                                console.log("Thickness value " + model.value + "Backend value Thickness " + hapticcurved.get_thickness());
+                            }
+                        }
+                    }
+                }
+            }
+
         }
-
         highlight: HighlightDelegate {
             width: parent.width
             anchors {
@@ -182,7 +173,7 @@ ColumnLayout
                     right: parent.right
                 }
                 text: section
-                onClicked: view2.toggleSection(section)
+                onClicked: hCurved.toggleSection(section)
             }
         }
 
@@ -209,21 +200,20 @@ ColumnLayout
                 showSection(section);
             }
         }
-        delegate: chooser
-        header: header3
-        footer: header3
+        delegate: hapcurveddelegate
+        header: hapCHeader
+        footer: hapCHeader
         Component {
-            id: header3
+            id: hapCHeader
             Rectangle {
                 width:  parent.width
-                height: 23
+                height: 25
                 Text {
-                    text: "Lens"
+                    text: "Haptic Curved"
                     font.bold: true
                     font.pixelSize: 17
                     fontSizeMode: Text.HorizontalFit
                 }
-
                 gradient: Gradient {
                     GradientStop {
                         position: 0.00;
@@ -231,14 +221,12 @@ ColumnLayout
                     }
                     GradientStop {
                         position: 1.00;
-                        color: "moccasin";
+                        color: "moccasin"
                     }
                 }
             }
         }
-
     }
 }
-
 
 

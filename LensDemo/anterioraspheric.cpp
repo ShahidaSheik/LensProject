@@ -1,7 +1,19 @@
 #include "anterioraspheric.h"
 
 AnteriorAspheric::AnteriorAspheric(QObject *parent) : Settings(parent)
-{}
+{
+    A1 = 0;
+    A2 = 0;
+    A3 = 0;
+    A4 = 0;
+    basCurvature = 0.1;
+    conicConstant = -1;
+    latheRecipe = "";
+    radiusCurvature = 10;
+    ProfileType = "ASpherical";
+    MeasureSurface = false;
+
+}
 
 void AnteriorAspheric::setA1(int aa)
 {
@@ -61,16 +73,6 @@ void AnteriorAspheric::setconicConstant(float cc)
 float AnteriorAspheric::get_conicConstant()
 {
     return conicConstant;
-}
-
-void AnteriorAspheric::setlatheRecipe(QString lr)
-{
-    latheRecipe = lr;
-}
-
-QString AnteriorAspheric::get_latheRecipe()
-{
-    return latheRecipe;
 }
 
 void AnteriorAspheric::setradiusCurvature(float rc)

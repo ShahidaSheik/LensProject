@@ -11,7 +11,6 @@ AnteriorSpherical::AnteriorSpherical(QObject *parent)
     materialIOR = 1.4914;
     specifyDiopter = true;
     latheRecipe = " ";
-    MeasureSurface = true;
     radius = 7.35;
 }
 
@@ -48,14 +47,6 @@ void AnteriorSpherical::setspecifyDiopter(bool sd){
 
 bool AnteriorSpherical::get_specifyDiopter(){
     return specifyDiopter;
-}
-
-void AnteriorSpherical::setlatheRecipe(QString r){
-    latheRecipe = r;
-    emit latheRecipeChanged();
-}
-QString AnteriorSpherical::get_latheRecipe(){
-    return latheRecipe;
 }
 
 void AnteriorSpherical::setRadius(float r){

@@ -14,7 +14,6 @@ class AnteriorSpherical : public Settings
     Q_PROPERTY (double FluidIOR READ get_FluidIOR WRITE setFluidIOR NOTIFY fluidiorChanged)
     Q_PROPERTY (double materialIOR READ get_materialIOR WRITE setmaterialIOR NOTIFY matiorChanged)
     Q_PROPERTY (bool specifyDiopter READ get_specifyDiopter WRITE setspecifyDiopter NOTIFY spedioChanged)
-    Q_PROPERTY (QString latheRecipe READ get_latheRecipe WRITE setlatheRecipe NOTIFY latheRecipeChanged)
     Q_PROPERTY (float radius READ get_Radius WRITE setRadius NOTIFY radiusChanged)
 
 public:
@@ -32,9 +31,6 @@ public:
     Q_INVOKABLE void setspecifyDiopter(bool);
     Q_INVOKABLE bool get_specifyDiopter();
 
-    Q_INVOKABLE void setlatheRecipe(QString);
-    Q_INVOKABLE QString get_latheRecipe();
-
     Q_INVOKABLE void setRadius(float);
     Q_INVOKABLE float get_Radius();
 
@@ -43,7 +39,6 @@ signals:
    void fluidiorChanged();
    void matiorChanged();
    void spedioChanged();
-   void latheRecipeChanged();
    void radiusChanged();
 
 protected:
@@ -51,7 +46,6 @@ protected:
     double FluidIOR;
     double materialIOR;
     bool specifyDiopter;
-    QString latheRecipe;
     float radius;
 };
 

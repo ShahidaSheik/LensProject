@@ -1,13 +1,20 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>AnteriorSphericalProp.qml</file>
-        <file>AnteriorSphericalModel.qml</file>
+        <file>AnteriorProp.qml</file>
         <file>HighlightDelegate.qml</file>
         <file>SectionDelegate.qml</file>
-        <file>PosteriorSphericalProp.qml</file>
-        <file>PosteriorSphericalModel.qml</file>
-        <file>LensPropModel.qml</file>
+        <file>posteriorSphericalView.qml</file>
         <file>Category.qml</file>
+        <file>anteriorSphericalView.qml</file>
+        <file>anteriorToricView.qml</file>
+        <file>anteriorAsphericalView.qml</file>
+        <file>PosteriorProp.qml</file>
+        <file>posteriorToricView.qml</file>
+        <file>posteriorAsphericalView.qml</file>
+        <file>HapticProp.qml</file>
+        <file>hapticCurvedView.qml</file>
+        <file>hapticVaultedView.qml</file>
+        <file>hapticFlatView.qml</file>
     </qresource>
 </RCC>

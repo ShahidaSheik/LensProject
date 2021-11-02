@@ -21,3 +21,12 @@ void Settings::setMeasureSurface(bool flag ){
 bool Settings::get_MeasureSurface(){
     return MeasureSurface;
 }
+
+void Settings::setlatheRecipe(QString r){
+    latheRecipe = r;
+    emit latheRecipeChanged();
+}
+
+QString Settings::get_latheRecipe(){
+    return latheRecipe;
+}

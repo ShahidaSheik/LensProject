@@ -10,6 +10,9 @@ SOURCES += \
         anterioraspheric.cpp \
         anteriorspherical.cpp \
         anteriortoric.cpp \
+        hapticcurved.cpp \
+        hapticflat.cpp \
+        hapticvaulted.cpp \
         lens.cpp \
         lensfile.cpp \
         main.cpp \
@@ -37,6 +40,9 @@ HEADERS += \
     anterioraspheric.h \
     anteriorspherical.h \
     anteriortoric.h \
+    hapticcurved.h \
+    hapticflat.h \
+    hapticvaulted.h \
     lens.h \
     lensfile.h \
     mylensmodel.h \
